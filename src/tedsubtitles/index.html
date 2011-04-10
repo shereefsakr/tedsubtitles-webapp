@@ -1,0 +1,58 @@
+<html>
+	<head>
+		<title>Download TED Talk translations</title>
+		{% include "metatags.html" %}
+		{% include "googletracking.html" %}
+	</head>
+  <body>
+	<div align="right" style="padding-right: 5%; padding-top: 2%">
+    	Created by <a href="http://www.twitter.com/shereef_sakr" target="_blank">Shereef Sakr</a>
+    	<br>
+    	<br>
+    	<a  href="https://spreadsheets.google.com/embeddedform?formkey=dHlVOVVYQlVoTFkxZ0tVNllRSDZJNHc6MQ" target="_blank">Suggestions</a>
+    </div>
+  	<div align="center" style="width: 100%">
+  	<h1>Download TED Talk translation subtitles <sub style="color: blue;font-size: medium;">BETA</sub></h1>
+  	
+    <form action="/getavailablelanguages" method="get">
+    
+    <input type="text" name="tedurl" width="100" size="100" style="background:#fff;border:1px solid #ccc;border-bottom-color:#999;border-left-color:#999;color:#000;font:18px arial,sans-serif bold;margin:0;padding:5px 8px 0 6px;vertical-align:top">
+    <input type="submit" value="Download Subtitles For URL">
+    <div style="color: gray; font-size: small;" align="center"">
+    	<b> e.g. </b> <a href="javascript:" onclick="javascript: document.forms[0].elements['tedurl'].value = 'http://www.ted.com/talks/lang/eng/richard_st_john_s_8_secrets_of_success.html';" > <font color="gray">http://www.ted.com/talks/lang/eng/richard_st_john_s_8_secrets_of_success.html</font></a>
+    </div>
+    <BR>
+    <BR>
+    <div style="color: black; font-size: medium;">
+    	This web site downloads translation subtitles in <a href="http://en.wikipedia.org/wiki/SubRip" target="_blank">SRT</a> format supported by most video players.
+    </div>
+    </form>
+    
+    {% if error %}
+    	{{error}}
+    {% endif %}
+    
+    
+    {% if langs %}
+	    <h2>Subtitles for <a href="{{tedurl}}" target="_blank">{{tedurl}}</a></h2>
+	    
+	    {% comment %}
+	    <div style="overflow: visible; padding-left: 5%; padding-right: 5%; font-size: large;" align="center">
+	    
+	    {% endcomment %}
+	    
+	    <div style="overflow:visible; font-size: large; padding: 5%; max-height: 300px;" align="center">
+	    {% for lang in langs %}
+	    		<a style="margin:20px;" href="/getsubtitles?langcode={{lang.code}}&tedurl={{tedurl}}">{{lang.name}}</a>
+	    {% endfor %}
+	    </div>
+	    
+    {% endif %}
+    
+    {% if not langs and tedurl %}
+    	<h2>No subtitles exist yet for <a href="{{tedurl}}">{{tedurl}}</a></h2>
+    {% endif %}
+    </div>
+  </body>
+</html>
+

@@ -101,10 +101,10 @@ def getTEDSubtitlesLangsByURL ( tedtalkUrl ) :
     langSplits = langSplits[1:]
     
     for langEntry in langSplits :
-        langSplit = langEntry.split ( '%22%2C%22Name%22%3A%22' )
+        langSplit = langEntry.split ( '%22%2C%22OldLanguageCode%22%3A%22' )
         subtitleLang = TEDSubtitleLang ()
         subtitleLang.code = langSplit[0]
-        subtitleLang.name = langSplit[1].split ( '%' )[0]
+        subtitleLang.name = langSplit[1].split ( '%22%2C%22Name%22%3A%22' )[1].split('%')[0]
         
         langs.append(subtitleLang)
     
@@ -116,13 +116,13 @@ def getTEDSubtitlesByURL ( tedtalkUrl , language ) :
     result = response.read()
     
     ## Get Talk ID value
-    splits = result.split ( ';ti=' )
-    talkId = splits[1].split ( '&' )[0]
+    splits = result.split ( 'ti:"' )
+    talkId = splits[1].split ( '",' )[0]
     #print talkId
     
     ## Get Talk Intro Duration value
-    splits = result.split ( ';introDuration=' )
-    talkIntroDuration = splits[1].split ( '&' )[0]
+    splits = result.split ( 'introDuration:' )
+    talkIntroDuration = splits[1].split ( ',' )[0]
     talkIntroDuration = int ( talkIntroDuration )
     #print talkIntroDuration
     

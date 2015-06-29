@@ -1,0 +1,1 @@
+Allows you to download TED Talk Translations in SRT subtitle format. It's a google appengine written in Python and published on http://tedsubtitles.appspot.com
